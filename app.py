@@ -14,7 +14,7 @@
     "import plotly.io as pio\n",
     "\n",
     "# Charger les données depuis GitHub\n",
-    "data_path = \"https://github.com/ton-compte/ton-depot/raw/main/data/Cabouy_Interpolated.xlsx\"\n",
+    "data_path = \"https://raw.githubusercontent.com/tolletg/Dash_Cabouy/main/Cabouy_Interpolated.xlsx\"\n",
     "data = pd.read_excel(data_path)\n",
     "\n",
     "# Nettoyage des noms de colonnes\n",
@@ -72,11 +72,7 @@
     "    return fig, \"\"\n",
     "\n",
     "# Définir l'instance du serveur\n",
-    "server = app.server\n",
-    "\n",
-    "# Lancer l'application sur Render\n",
-    "if __name__ == \"__main__\":\n",
-    "    app.run_server(debug=False, host='0.0.0.0', port=8080)\n"
+    "server = app.server\n"
    ]
   }
  ],
