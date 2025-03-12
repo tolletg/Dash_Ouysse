@@ -153,10 +153,6 @@ def update_graph(station, param):
 # 📌 Définir l'instance du serveur
 server = app.server
 
-if __name__ == "__main__":
-    app.run_server(debug=True)
-
-
 # In[ ]:
 
 
