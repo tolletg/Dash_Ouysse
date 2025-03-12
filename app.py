@@ -7,6 +7,9 @@
 import logging
 import pandas as pd
 import os
+import dash
+from dash import dcc, html
+import plotly.express as px
 
 # 📌 URL de base des fichiers GitHub
 GITHUB_URL = "https://github.com/tolletg/Dash_Cabouy/raw/refs/heads/main/Data/"
@@ -62,10 +65,6 @@ for station, filename in STATIONS.items():
         data_cache[station] = None
 
 # 📌 Initialisation de l'application Dash
-import dash
-from dash import dcc, html
-import plotly.express as px
-
 app = dash.Dash(__name__)
 
 app.layout = html.Div([
@@ -152,6 +151,14 @@ def update_graph(station, param):
 
 # 📌 Définir l'instance du serveur
 server = app.server
+
+# 📌 Récupérer le port à partir de la variable d'environnement (ou utiliser 8050 par défaut si en local)
+port = int(os.getenv('PORT', 8050))
+
+# 📌 Lancer l'application sur le port spécifié
+if __name__ == "__main__":
+    app.run_server(debug=True, port=port)
+
 
 # In[ ]:
 
