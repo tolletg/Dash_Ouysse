@@ -11,10 +11,8 @@ import dash
 from dash import dcc, html
 import plotly.express as px
 
-# 📌 URL de base des fichiers GitHub
 GITHUB_URL = "https://github.com/tolletg/Dash_Cabouy/raw/refs/heads/main/Data/"
 
-# 📌 Liste des fichiers sur GitHub
 STATIONS = {
     "Alzou": "Alzou.xlsx",
     "Cabouy": "Cabouy.xlsx",
@@ -31,40 +29,33 @@ STATIONS = {
     "Zobépine": "Zobepine.xlsx"
 }
 
-# 📌 Initialisation du cache pour les données
 data_cache = {}
 
-# 📌 Configurer le logger pour les messages
 logging.basicConfig(level=logging.INFO)
 
-# 📌 Charger les fichiers Excel/CSV en mémoire
 for station, filename in STATIONS.items():
     url = GITHUB_URL + filename
     try:
         logging.info(f" Chargement de {station} depuis {url}")
         
         if filename.endswith(".xlsx"):
-            df = pd.read_excel(url, engine="openpyxl")  # ✅ Force le bon moteur pour Excel
+            df = pd.read_excel(url, engine="openpyxl")
         else:
-            df = pd.read_csv(url, encoding="utf-8", sep=";", decimal=",")  # ✅ Forcer UTF-8 pour CSV
-        
-        # 🔹 Nettoyage des colonnes
+            df = pd.read_csv(url, encoding="utf-8", sep=";", decimal=",")
+
         df.columns = [col.strip().replace(" ", "_") for col in df.columns]
-        
-        # 🔹 Vérification et conversion de la date
+
         if "DATE" in df.columns:
             df["DATE"] = pd.to_datetime(df["DATE"], errors="coerce") 
-        
-        # 🔹 Tri des données par date
+
         df = df.sort_values("DATE")
 
         data_cache[station] = df
 
     except Exception as e:
-        logging.error(f"❌ Erreur lors du chargement de {station} : {str(e)}")
+        logging.error(f"Erreur lors du chargement de {station} : {str(e)}")
         data_cache[station] = None
 
-# 📌 Initialisation de l'application Dash
 app = dash.Dash(__name__)
 
 app.layout = html.Div([
@@ -95,7 +86,6 @@ app.layout = html.Div([
     html.Div(id="error-message", style={"color": "red", "font-weight": "bold"})
 ])
 
-# 📌 Callback pour mettre à jour les paramètres
 @app.callback(
     [dash.dependencies.Output("param-dropdown", "options"),
      dash.dependencies.Output("param-dropdown", "value")],
@@ -113,7 +103,6 @@ def update_param_options(station):
 
     return [{"label": param, "value": param} for param in parametres], parametres[0] if parametres else None
 
-# 📌 Callback pour mettre à jour le graphique
 @app.callback(
     [dash.dependencies.Output("graph", "figure"),
      dash.dependencies.Output("error-message", "children")],
@@ -149,13 +138,10 @@ def update_graph(station, param):
 
     return fig, ""
 
-# 📌 Définir l'instance du serveur
 server = app.server
 
-# 📌 Récupérer le port à partir de la variable d'environnement (ou utiliser 8050 par défaut si en local)
 port = int(os.getenv('PORT', 8050))
 
-# 📌 Lancer l'application sur le port spécifié
 if __name__ == "__main__":
     app.run_server(debug=True, port=port)
 
