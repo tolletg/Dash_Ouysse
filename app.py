@@ -24,8 +24,8 @@ STATIONS = {
     "Plana_Lac": "Plana_Lac.xlsx",
     "Plana_Riviere": "Plana_Riviere.xlsx",
     "St_Sauveur": "St_Sauveur.xlsx",
-    "Thémines": "Themines.xlsx",
-    "Théminettes": "Theminettes.xlsx",
+    "Thémines": "Thémines.xlsx",
+    "Théminettes": "Théminettes.xlsx",
     "Zobépine": "Zobepine.xlsx",
     "Rocamadour": "Rocamadour.xlsx"
 }
