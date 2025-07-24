@@ -26,8 +26,8 @@ STATIONS = {
     "St_Sauveur": "St_Sauveur.xlsx",
     "Thémines": "Themines.xlsx",
     "Théminettes": "Theminettes.xlsx",
-    "Zobépine": "Zobepine.xlsx"
-    "Rocamadour": "Rocamadour.xlsx",
+    "Zobépine": "Zobepine.xlsx",
+    "Rocamadour": "Rocamadour.xlsx"
 }
 
 data_cache = {}
